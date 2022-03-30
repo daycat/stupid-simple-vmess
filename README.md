@@ -20,7 +20,7 @@ wget 'https://proxy.freecdn.workers.dev/?url=https%3A%2F%2Fraw.githubusercontent
 3. Thanks to [Hax.co.id](https://hax.co.id) for providing a VPS to host the API server and servers for testing
 
 # Miao~ Wanna buy me a cup of catfee? :3
-USDT-TRC20:   TBLAmCewbKw62vWLqWh1CthGC3TJbU9yPd
-ETH:          0xF41115DF198345eC2A9C53BD9F28a4235665D149
+USDT-TRC20:   TBLAmCewbKw62vWLqWh1CthGC3TJbU9yPd   
+ETH:          0xF41115DF198345eC2A9C53BD9F28a4235665D149  
 
 Thanks! :D
