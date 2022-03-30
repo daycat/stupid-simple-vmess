@@ -5,12 +5,12 @@ the hands-down most simple Vmess script
 
 ## Normal:
 ```shell
-wget 'https://proxy.freecdn.workers.dev/?url=https%3A%2F%2Fgithub.com%2Fdaycat%2Fstupid-simple-vmess%2Fblob%2Fmain%2Finstall.sh' -O ipv6.sh && bash ipv6.sh
+wget 'https://proxy.freecdn.workers.dev/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdaycat%2Fstupid-simple-vmess%2Fmain%2Finstall.sh' -O ipv6.sh && bash ipv6.sh
 ```
 
 ## IPv6-only VPS:
 ```shell
-wget 'https://proxy.freecdn.workers.dev/?url=https%3A%2F%2Fgithub.com%2Fdaycat%2Fstupid-simple-vmess%2Fblob%2Fmain%2Fipv6-only.sh' -O ipv6.sh && bash ipv6.sh
+wget 'https://proxy.freecdn.workers.dev/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fdaycat%2Fstupid-simple-vmess%2Fmain%2Fipv6-only.sh' -O ipv6.sh && bash ipv6.sh
 ```
 
 # Credits
