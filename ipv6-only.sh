@@ -294,7 +294,7 @@ getCert() {
 			systemctl start cron
 			systemctl enable cron
 		fi
-		curl -sL https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acmeist.sh email=null@daycat.space
+		curl -sL https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh email=null@daycat.space
 		source ~/.bashrc
 		~/.acme.sh/acme.sh --upgrade --auto-upgrade
 		~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
