@@ -30,7 +30,7 @@ if [ "$_email" ]; then
 fi
 
 
-_url="https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh"
+_url="https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme/acme.sh"
 
 
 _get=""
