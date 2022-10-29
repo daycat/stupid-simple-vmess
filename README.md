@@ -3,7 +3,7 @@ the hands-down most simple Vmess script
 
 # Usage
 
-## Normal:
+## IPv4 VPS:
 ```shell
 wget 'https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/install.sh' -O install.sh && bash install.sh
 ```
