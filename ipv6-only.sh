@@ -216,8 +216,6 @@ getData() {
     len=$(shuf -i5-12 -n1)
 	ws=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $len | head -n 1)
 	WSPATH="/$ws"
-	PROXY_URL="https://bing.ioliu.cn"
-	REMOTE_HOST=$(echo ${PROXY_URL} | cut -d/ -f3)
 	ALLOW_SPIDER="n"
 	echo ""
     XPORT=$(shuf -i10000-65000 -n1)
@@ -373,15 +371,7 @@ configNginx() {
 		EOF
 	fi
 
-	if [[ "$PROXY_URL" == "" ]]; then
-		action=""
-	else
-		action="proxy_ssl_server_name on;
-        proxy_pass $PROXY_URL;
-        proxy_set_header Accept-Encoding '';
-        sub_filter \"$REMOTE_HOST\" \"$DOMAIN\";
-        sub_filter_once off;"
-	fi
+	action=""
 
 	if [[ "$TLS" == "true" || "$XTLS" == "true" ]]; then
 		mkdir -p ${NGINX_CONF_PATH}
@@ -770,7 +760,7 @@ getConfigFileInfo() {
 outputVmessWS() {
 	raw="{
   \"v\":\"2\",
-  \"ps\":\"\",
+  \"ps\":\"ssv_$DOMAIN\",
   \"add\":\"$DOMAIN\",
   \"port\":\"${port}\",
   \"id\":\"${uid}\",

@@ -213,8 +213,6 @@ getData() {
     len=$(shuf -i5-12 -n1)
 	ws=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $len | head -n 1)
 	WSPATH="/$ws"
-	PROXY_URL="https://bing.ioliu.cn"
-	REMOTE_HOST=$(echo ${PROXY_URL} | cut -d/ -f3)
 	ALLOW_SPIDER="n"
 	echo ""
     XPORT=$(shuf -i10000-65000 -n1)
@@ -291,6 +289,7 @@ getCert() {
 			systemctl start cron
 			systemctl enable cron
 		fi
+		sleep 5
 		curl -sL https://get.acme.sh | sh -s email=null@daycat.space
 		source ~/.bashrc
 		~/.acme.sh/acme.sh --upgrade --auto-upgrade
@@ -383,15 +382,7 @@ configNginx() {
 		EOF
 	fi
 
-	if [[ "$PROXY_URL" == "" ]]; then
-		action=""
-	else
-		action="proxy_ssl_server_name on;
-        proxy_pass $PROXY_URL;
-        proxy_set_header Accept-Encoding '';
-        sub_filter \"$REMOTE_HOST\" \"$DOMAIN\";
-        sub_filter_once off;"
-	fi
+	action=""
 
 	if [[ "$TLS" == "true" || "$XTLS" == "true" ]]; then
 		mkdir -p ${NGINX_CONF_PATH}
@@ -770,8 +761,8 @@ getConfigFileInfo() {
 outputVmessWS() {
 	raw="{
   \"v\":\"2\",
-  \"ps\":\"\",
-  \"add\":\"$IP\",
+  \"ps\":\"ssv_${DOMAIN}\",
+  \"add\":\"${DOMAIN}\",
   \"port\":\"${port}\",
   \"id\":\"${uid}\",
   \"aid\":\"$alterid\",
@@ -784,7 +775,7 @@ outputVmessWS() {
 	link=$(echo -n ${raw} | base64 -w 0)
 	link="vmess://${link}"
 
-	echo -e "   ${BLUE}address: ${PLAIN} ${RED}${IP}${PLAIN}"
+	echo -e "   ${BLUE}address: ${PLAIN} ${RED}${DOMAIN}${PLAIN}"
 	echo -e "   ${BLUE}port：${PLAIN}${RED}${port}${PLAIN}"
 	echo -e "   ${BLUE}uuid：${PLAIN}${RED}${uid}${PLAIN}"
 	echo -e "   ${BLUE}alterid：${PLAIN} ${RED}${alterid}${PLAIN}"
