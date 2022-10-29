@@ -87,7 +87,7 @@ res=$(which yum 2>/dev/null)
 
 V6_PROXY=""
 IP=`curl ipv6.ip.sb`
-[[ "$?" != "0" ]] && IP=`curl ipv6.ip.sb` && V6_PROXY="https://gh-proxy-misakano7545.koyeb.app/"
+[[ "$?" != "0" ]] && IP=`curl ipv6.ip.sb` && V6_PROXY="https://cdn.n101.workers.dev/"
 [[ $V6_PROXY != "" ]] && echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
 
 BT="false"
@@ -294,29 +294,16 @@ getCert() {
 			systemctl start cron
 			systemctl enable cron
 		fi
-		curl -sL https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh email=null@daycat.space
-		source ~/.bashrc
-		~/.acme.sh/acme.sh --upgrade --auto-upgrade
+		curl -sL https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh | sh -s email=null@daycat.space
 		~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-		if [[ "$BT" == "false" ]]; then
-			if [ -n $V6_PROXY ]; then
-				~/.acme.sh/acme.sh --issue -d $DOMAIN --keylength ec-256 --pre-hook "systemctl stop nginx" --post-hook "systemctl restart nginx" --standalone --listen-v6
-			else
-				~/.acme.sh/acme.sh --issue -d $DOMAIN --keylength ec-256 --pre-hook "systemctl stop nginx" --post-hook "systemctl restart nginx" --standalone
-			fi
-		else
-			~/.acme.sh/acme.sh --issue -d $DOMAIN --keylength ec-256 --pre-hook "nginx -s stop || { echo -n ''; }" --post-hook "nginx -c /www/server/nginx/conf/nginx.conf || { echo -n ''; }" --standalone
-		fi
-		[[ -f ~/.acme.sh/${DOMAIN}_ecc/ca.cer ]] || {
-			log ERROR " Failed to get certificate. Please submit an issues on GitHUB"
-			exit 1
-		}
+		source ~/.bashrc
+		~/.acme.sh/acme.sh --issue -d $DOMAIN --keylength ec-256 --pre-hook "systemctl stop nginx" --post-hook "systemctl restart nginx" --standalone --listen-v6
 		CERT_FILE="/usr/local/etc/xray/${DOMAIN}.pem"
 		KEY_FILE="/usr/local/etc/xray/${DOMAIN}.key"
 		~/.acme.sh/acme.sh --install-cert -d $DOMAIN --ecc \
-		--key-file $KEY_FILE \
-		--fullchain-file $CERT_FILE \
-		--reloadcmd "service nginx force-reload"
+			--key-file $KEY_FILE \
+			--fullchain-file $CERT_FILE \
+			--reloadcmd "service nginx force-reload"
 		[[ -f $CERT_FILE && -f $KEY_FILE ]] || {
 			log ERROR " Failed to get certificate. Please submit an issues on GitHUB"
 			exit 1
