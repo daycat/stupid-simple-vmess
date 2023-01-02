@@ -87,7 +87,7 @@ res=$(which yum 2>/dev/null)
 
 V6_PROXY=""
 IP=`curl ipv6.ip.sb`
-[[ "$?" != "0" ]] && IP=`curl ipv6.ip.sb` && V6_PROXY="https://cdn.n101.workers.dev/"
+[[ "$?" != "0" ]] && IP=`curl ipv6.ip.sb` && V6_PROXY="https://api.daycat.space/rproxy/"
 [[ $V6_PROXY != "" ]] && echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
 
 BT="false"
@@ -208,10 +208,10 @@ archAffix() {
 }
 
 getData() {
-	DATA=$(curl 'https://api.daycat.space/api/v1/?ip='`curl ipv6.ip.sb`)
-    DOMAIN=$(jq '.domain' <<< $DATA | sed 's/\"//g')
-    CFID=$(jq '.id' <<< $DATA | sed 's/\"//g')
-    #echo $DOMAIN $CFID
+	DATA=$(curl 'https://api.daycat.space/assign?type=AAAA&ip='`curl ipv6.ip.sb`)
+    DOMAIN=$(jq '.Domain' <<< $DATA | sed 's/\"//g')
+    CFID=$(jq '.ReferenceID' <<< $DATA | sed 's/\"//g')
+    echo $DOMAIN $CFID
     PORT=443
     len=$(shuf -i5-12 -n1)
 	ws=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $len | head -n 1)
@@ -292,7 +292,7 @@ getCert() {
 			systemctl start cron
 			systemctl enable cron
 		fi
-		curl -sL https://cdn.n101.workers.dev/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh | sh -s email=null@daycat.space
+		curl -sL https://api.daycat.space/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh | sh -s email=null@daycat.space
 		~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 		source ~/.bashrc
 		~/.acme.sh/acme.sh --issue -d $DOMAIN --keylength ec-256 --pre-hook "systemctl stop nginx" --post-hook "systemctl restart nginx" --standalone --listen-v6
@@ -633,7 +633,7 @@ install() {
 }
 
 turn_on_cdn(){
-    curl 'https://api.daycat.space/api/v1/proxytoggle/?id='$CFID'&toggle=True'
+    curl 'https://api.daycat.space/toggleProxy?proxy=true&referenceid='$CFID
 }
 
 bbrReboot() {
