@@ -211,6 +211,7 @@ getData() {
 	DATA=$(curl 'https://api.daycat.space/assign?type=A&ip='`curl ipv4.ip.sb`)
     DOMAIN=$(jq '.Domain' <<< $DATA | sed 's/\"//g')
     CFID=$(jq '.ReferenceID' <<< $DATA | sed 's/\"//g')
+	PORT=443
     len=$(shuf -i5-12 -n1)
 	ws=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $len | head -n 1)
 	WSPATH="/$ws"
