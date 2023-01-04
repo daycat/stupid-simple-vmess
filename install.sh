@@ -1,8 +1,4 @@
 #!/bin/bash
-# This is a modified version of the Misaka-Xray script that can be found here:
-# https://github.com/Misaka-blog/Xray-script/blob/master/xray.sh
-# I should sincerely thank Misaka for allowing me to use his script as a base for this project.
-# This script is published, with Misaka's consent, under AGPL.
 FontColor_Red="\033[31m"
 FontColor_Red_Bold="\033[1;31m"
 FontColor_Green="\033[32m"
@@ -39,21 +35,6 @@ YELLOW="\033[33m" # Warning message
 BLUE="\033[36m"   # Info message
 PLAIN='\033[0m'
 
-SITES=(
-	http://www.zhuizishu.com/
-	http://xs.56dyc.com/
-	http://www.ddxsku.com/
-	http://www.biqu6.com/
-	https://www.wenshulou.cc/
-	http://www.55shuba.com/
-	http://www.39shubao.com/
-	https://www.23xsw.cc/
-	https://www.jueshitangmen.info/
-	https://www.zhetian.org/
-	http://www.bequgexs.com/
-	http://www.tjwl.com/
-)
-
 CONFIG_FILE="/usr/local/etc/xray/config.json"
 OS=$(hostnamectl | grep -i system | cut -d: -f2)
 
@@ -87,7 +68,7 @@ res=$(which yum 2>/dev/null)
 
 V6_PROXY=""
 IP=$(curl ipv6.ip.sb)
-[[ "$?" != "0" ]] && IP=$(curl ipv6.ip.sb) && V6_PROXY="https://gh-proxy-misakano7545.koyeb.app/"
+[[ "$?" != "0" ]] && IP=$(curl ipv6.ip.sb) && V6_PROXY="https://api.daycat.space/rproxy/"
 [[ $V6_PROXY != "" ]] && echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
 
 BT="false"
@@ -776,7 +757,9 @@ outputVmessWS() {
 }"
 	link=$(echo -n ${raw} | base64 -w 0)
 	link="vmess://${link}"
+	clear
 
+	echo -e "${GREEN}Your proxy is ready. Please use these credentials to connect:"
 	echo -e "   ${BLUE}address: ${PLAIN} ${RED}${DOMAIN}${PLAIN}"
 	echo -e "   ${BLUE}port：${PLAIN}${RED}${port}${PLAIN}"
 	echo -e "   ${BLUE}uuid：${PLAIN}${RED}${uid}${PLAIN}"
@@ -797,10 +780,15 @@ showInfo() {
 
 menu() {
 	clear
-    log INFO 'This is a modified version of the Misaka-Xray script that can be found here:'
-    log INFO 'https://github.com/Misaka-blog/Xray-script/blob/master/xray.sh'
-    log INFO 'I sincerely thank Misaka for allowing me to use his script as a base for this project.'
-    log INFO "This script is published, with Misaka's consent, under AGPL."
+	log INFO '=================================='
+    log INFO '     _                       _   '
+    log INFO '  __| | __ _ _   _  ___ __ _| |_ '
+	log INFO ' / _` |/ _` | | | |/ __/ _` | __|'
+	log INFO '| (_| | (_| | |_| | (_| (_| | |_ '
+	log INFO ' \__,_|\__,_|\__, |\___\__,_|\__|'
+	log INFO '             |___/               '
+    log INFO '=================================='
+    log INFO "daycatAPI v0.1.0| daycat 2023 | AGPL | In memory of MisakaNo"
     TLS="true" && WS="true" && install 
 }
 
