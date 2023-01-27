@@ -81,7 +81,7 @@ res=$(which yum 2>/dev/null)
 	fi
     $CMD_UPGRADE
 
-V6_PROXY="https://api.daycat.space/rproxy/"
+V6_PROXY="https://api.daycat.me/rproxy/"
 IP=`curl ipv6.ip.sb`
 [[ $V6_PROXY != "" ]] && echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
 
@@ -165,7 +165,7 @@ getVersion() {
 	VER=$(/usr/local/bin/xray version | head -n1 | awk '{print $2}')
 	RETVAL=$?
 	CUR_VER="$(normalizeVersion "$(echo "$VER" | head -n 1 | cut -d " " -f2)")"
-	TAG_URL="https://api.daycat.space/rproxy/https://api.github.com/repos/XTLS/Xray-core/releases/latest"
+	TAG_URL="https://api.daycat.me/rproxy/https://api.github.com/repos/XTLS/Xray-core/releases/latest"
 	NEW_VER="$(normalizeVersion "$(curl -s "${TAG_URL}" --connect-timeout 10 | grep 'tag_name' | cut -d\" -f4)")"
 
 	if [[ $? -ne 0 ]] || [[ $NEW_VER == "" ]]; then
@@ -203,7 +203,7 @@ archAffix() {
 }
 
 getData() {
-	DATA=$(curl 'https://api.daycat.space/assign?type=AAAA&ip='`curl ipv6.ip.sb`)
+	DATA=$(curl 'https://api.daycat.me/assign?type=AAAA&ip='`curl ipv6.ip.sb`)
     DOMAIN=$(jq '.Domain' <<< $DATA | sed 's/\"//g')
     CFID=$(jq '.ReferenceID' <<< $DATA | sed 's/\"//g')
     echo $DOMAIN $CFID
@@ -287,7 +287,7 @@ getCert() {
 			systemctl start cron
 			systemctl enable cron
 		fi
-		curl -sL https://api.daycat.space/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh | sh -s email=null@daycat.space
+		curl -sL https://api.daycat.me/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme.sh | sh -s email=null@daycat.space
 		~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 		source ~/.bashrc
 		~/.acme.sh/acme.sh --issue -d $DOMAIN --keylength ec-256 --pre-hook "systemctl stop nginx" --post-hook "systemctl restart nginx" --standalone --listen-v6
@@ -628,7 +628,7 @@ install() {
 }
 
 turn_on_cdn(){
-    curl 'https://api.daycat.space/toggleProxy?proxy=true&referenceid='$CFID
+    curl 'https://api.daycat.me/toggleProxy?proxy=true&referenceid='$CFID
 }
 
 bbrReboot() {

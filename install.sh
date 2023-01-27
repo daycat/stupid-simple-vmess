@@ -68,7 +68,7 @@ res=$(which yum 2>/dev/null)
 
 V6_PROXY=""
 IP=$(curl ipv6.ip.sb)
-[[ "$?" != "0" ]] && IP=$(curl ipv6.ip.sb) && V6_PROXY="https://api.daycat.space/rproxy/"
+[[ "$?" != "0" ]] && IP=$(curl ipv6.ip.sb) && V6_PROXY="https://api.daycat.me/rproxy/"
 [[ $V6_PROXY != "" ]] && echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
 
 BT="false"
@@ -189,7 +189,7 @@ archAffix() {
 }
 
 getData() {
-	DATA=$(curl 'https://api.daycat.space/assign?type=A&ip='`curl ipv4.ip.sb`)
+	DATA=$(curl 'https://api.daycat.me/assign?type=A&ip='`curl ipv4.ip.sb`)
     DOMAIN=$(jq '.Domain' <<< $DATA | sed 's/\"//g')
     CFID=$(jq '.ReferenceID' <<< $DATA | sed 's/\"//g')
 	PORT=443

@@ -30,7 +30,7 @@ if [ "$_email" ]; then
 fi
 
 
-_url="https://api.daycat.space/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme/acme.sh"
+_url="https://api.daycat.me/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/acme/acme.sh"
 
 
 _get=""

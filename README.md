@@ -5,12 +5,12 @@ the hands-down most simple Vmess script. No domain / knownledge / fiddling neede
 
 ## IPv4 VPS:
 ```shell
-wget 'https://api.daycat.space/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/install.sh' -O install.sh && bash install.sh
+wget 'https://api.daycat.me/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/install.sh' -O install.sh && bash install.sh
 ```
 
 ## IPv6-only VPS:
 ```shell
-wget 'https://api.daycat.space/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/ipv6-only.sh' -O ipv6.sh && bash ipv6.sh
+wget 'https://api.daycat.me/rproxy/https://raw.githubusercontent.com/daycat/stupid-simple-vmess/main/ipv6-only.sh' -O ipv6.sh && bash ipv6.sh
 ```
 
 # To-do:
