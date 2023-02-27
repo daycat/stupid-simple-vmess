@@ -1,3 +1,6 @@
+# Update
+This project is no longer maintained.
+I am no longer hosting the API required for this project. You can create your own API node with the code at https://github.com/daycat/daycatapi. You'll need to modify the script to use your new API endpoint in order for this to work.
 # stupid-simple-vmess
 the hands-down most simple Vmess script. No domain / knownledge / fiddling needed. 
 
